@@ -1,12 +1,11 @@
-import dotenv from "dotenv";
-dontenv.config();
+require("dotenv").config();
 
-export default {
+module.exports = {
   development: {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: "fitfeel-dev",
-    host: 127.0.0.1,
+    host: "127.0.0.1",
     dialect: "postgres",
     logging: true,
     operatorAliases: false
@@ -15,16 +14,15 @@ export default {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: "fitfeel-test",
-    host: 127.0.0.1,
+    host: "127.0.0.1",
     dialect: "postgres",
     logging: false,
-    operatorAliases: false
+    operatorAliases: true
   },
   production: {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_url,
-    host: 127.0.0.1,
     dialect: "postgres",
     logging: true,
     operatorAliases: false
