@@ -12,6 +12,20 @@ function register(req, res, next) {
     console.log(err);
     next();
   })
+};
+
+function authorize(req, res, next) {
+  const { email, password } = req.body;
+
+  return userService.authorize(email, password)
+  .then(user => {
+    user.msg
+    ? res.status(401).json({ msg: user.msg })
+    : res.status(200).json({ user, msg: "Sign in successful."});
+  }).catch(err => {
+    console.log(err);
+    next();
+  })
 }
 
-module.exports = { register };
+module.exports = { register, authorize };
