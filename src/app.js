@@ -5,6 +5,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import morgan from "morgan";
 
+const routes = require("./api/index");
+
 const app = express();
 
 dotenv.config();
@@ -13,9 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+
+app.use("/api", routes);
 
 
 export default app;

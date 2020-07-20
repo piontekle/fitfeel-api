@@ -4,9 +4,8 @@ import bcrypt from "bcryptjs";
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define("User", {
-    username: {
+    name: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false
     },
     email: {
@@ -23,17 +22,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
 
-  User.findByLogin = async login => {
-    let user = await User.findOne({ where: { username: login } })
+  User.hashPassword = (password) => {
+    const salt = bcrypt.genSaltSync();
 
-    if (!user) user = await User.findOne({ where: { email: login } });
-
-    return user;
-  }
+    return bcrypt.hashSync(password, salt);
+  };
 
   User.authorize = (password, dbPassword) => {
     return bcrypt.compareSync(password, dbPassword);
-  }
+  };
 
   return User;
 }
